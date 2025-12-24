@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinz Cull - Linktree</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(30, 136, 229, 0.2);
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://lh3.googleusercontent.com/pw/AP1GczP_7ulKYfFXgwhaEBkZ4qeW1EhXr8JKiHafBFKcQr4NupF-4ViED8Ri5TRLVBCu48dq6AvhomVpp5sMouZxlXzdWN_BLwvEUvPSvBEBgEK9TNzSIvgWvgyXxKC_hGFWXJmW-mO3gWGlAHN_GM2Nd-i5=w720-h720-s-no-gm?authuser=0');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.8);
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .profile p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        
+        .links {
+            padding: 30px 25px;
+        }
+        
+        .links h2 {
+            color: #1e88e5;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+        
+        .link-item {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 15px;
+            margin-bottom: 18px;
+            padding: 18px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.1);
+            transition: all 0.3s ease;
+            border-left: 6px solid #42a5f5;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(66, 165, 245, 0.05), rgba(30, 136, 229, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(30, 136, 229, 0.2);
+        }
+        
+        .link-item:hover::before {
+            opacity: 1;
+        }
+        
+        .link-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 18px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(30, 136, 229, 0.2);
+        }
+        
+        .link-icon i {
+            font-size: 26px;
+            color: #1e88e5;
+        }
+        
+        .link-content {
+            flex-grow: 1;
+        }
+        
+        .link-title {
+            font-weight: 700;
+            color: #1565c0;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .link-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .link-arrow {
+            color: #42a5f5;
+            font-size: 1.2rem;
+            margin-left: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .link-item:hover .link-arrow {
+            transform: translateX(5px);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 25px 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            background-color: #f5f9ff;
+        }
+        
+        .footer p {
+            margin-bottom: 15px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #1e88e5;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(30, 136, 229, 0.2);
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(30, 136, 229, 0.3);
+            background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+        }
+        
+        .category-title {
+            color: #1e88e5;
+            font-size: 1.2rem;
+            margin: 25px 0 15px;
+            padding-left: 12px;
+            border-left: 5px solid #42a5f5;
+            font-weight: 600;
+        }
+        
+        .category-title:first-of-type {
+            margin-top: 0;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 30px 15px 25px;
+            }
+            
+            .profile-img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .links {
+                padding: 25px 20px;
+            }
+            
+            .link-item {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="profile">
+                    <div class="profile-img">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczP_7ulKYfFXgwhaEBkZ4qeW1EhXr8JKiHafBFKcQr4NupF-4ViED8Ri5TRLVBCu48dq6AvhomVpp5sMouZxlXzdWN_BLwvEUvPSvBEBgEK9TNzSIvgWvgyXxKC_hGFWXJmW-mO3gWGlAHN_GM2Nd-i5=w720-h720-s-no-gm?authuser=0" alt="Vinz Cull">
+                    </div>
+                    <h1>VINZ CULL</h1>
+                    <p>Semua link penting di satu tempat</p>
+                </div>
+            </div>
+            
+            <div class="links">
+                <h2>Hubungi dan Ikuti Saya</h2>
+                
+                <div class="category-title">WhatsApp Personal</div>
+                <a href="https://wa.me/6285792906609" target="_blank" class="link-item">
+                    <div class="link-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">WHATSAPP VINZ CULL</div>
+                        <div class="link-desc">Kirim pesan langsung ke nomor saya</div>
+                    </div>
+                    <div class="link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <div class="category-title">Grup WhatsApp</div>
+                <a href="https://chat.whatsapp.com/Hyyrrctf07CH0NKwE7jlEf" target="_blank" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">GRUP TERBUKA</div>
+                        <div class="link-desc">Bergabung dengan grup WhatsApp terbuka</div>
+                    </div>
+                    <div class="link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <a href="https://chat.whatsapp.com/C05ekeE3A6i6FYNjOv7UzL" target="_blank" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">GRUP STOK 1</div>
+                        <div class="link-desc">Grup informasi stok 1</div>
+                    </div>
+                    <div class="link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <a href="https://chat.whatsapp.com/LVCwEPzBC7B0acEPBRaa06" target="_blank" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">GRUP STOK 2</div>
+                        <div class="link-desc">Grup informasi stok 2</div>
+                    </div>
+                    <div class="link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <div class="category-title">Saluran WhatsApp</div>
+                <a href="https://whatsapp.com/channel/0029VaywSy97DAWpOIfTf72c" target="_blank" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">SALURAN VINZ CULL</div>
+                        <div class="link-desc">Ikuti saluran WhatsApp untuk update terbaru</div>
+                    </div>
+                    <div class="link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <div class="category-title">Media Sosial</div>
+                <a href="https://www.instagram.com/vinzcull_6609?igsh=OTNhaW91NW55OWEy" target="_blank" class="link-item">
+                    <div class="link-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-title">INSTAGRAM VINZ CULL</div>
+                        <div class="link-desc">Ikuti saya di Instagram untuk konten lainnya</div>
+                    </div>
+                    <div class="link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="footer">
+                <p>© <span id="currentYear"></span> Vinz Cull. Semua link di atas akan membuka halaman baru.</p>
+                <div class="social-icons">
+                    <a href="https://wa.me/6285792906609" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/vinzcull_6609?igsh=OTNhaW91NW55OWEy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menambahkan efek interaktif pada link
+        document.addEventListener('DOMContentLoaded', function() {
+            const linkItems = document.querySelectorAll('.link-item');
+            
+            linkItems.forEach(item => {
+                item.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                item.addEventListener('mouseup', function() {
+                    this.style.transform = '';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Menambahkan tahun dinamis di footer
+            const currentYear = new Date().getFullYear();
+            document.getElementById('currentYear').textContent = currentYear;
+            
+            // Efek animasi saat halaman dimuat
+            const card = document.querySelector('.card');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
